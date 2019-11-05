@@ -1,0 +1,2 @@
+# kivy-mnemo
+Mnemonic training
