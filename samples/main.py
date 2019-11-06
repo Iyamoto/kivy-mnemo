@@ -6,9 +6,9 @@ import kivy
 from kivy.app import App
 
 
-class WeatherApp(App):
+class MnemoApp(App):
     pass
 
 
 if __name__ == '__main__':
-    WeatherApp().run()
+    MnemoApp().run()
