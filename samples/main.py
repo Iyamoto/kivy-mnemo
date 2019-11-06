@@ -1,5 +1,7 @@
 """R&D staff"""
 
+__version__ = '0.1'
+
 import kivy
 from kivy.app import App
 

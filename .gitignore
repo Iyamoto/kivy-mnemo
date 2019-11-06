@@ -8,6 +8,8 @@ __pycache__/
 
 .idea/
 
+android-ndk-r17c-linux-x86_64/*
+
 # Distribution / packaging
 .Python
 build/
