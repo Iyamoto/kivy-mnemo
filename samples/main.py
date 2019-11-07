@@ -6,6 +6,7 @@ from glob import glob
 from os.path import join, dirname
 from kivy.app import App
 from kivy.uix.image import Image
+from kivy.uix.scatter import Scatter
 from kivy.logger import Logger
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import ScreenManager, Screen
@@ -50,7 +51,7 @@ class ImageScreen(Screen):
             break
 
 
-class Picture(Image):
+class Picture(Scatter):
     source = StringProperty(None)
 
 
