@@ -1,6 +1,6 @@
 """R&D staff"""
 
-__version__ = '0.22'
+__version__ = '0.23'
 
 from glob import glob, os
 from os.path import join, dirname
@@ -51,7 +51,7 @@ class ListBases(RecycleView):
         super(ListBases, self).__init__(**kwargs)
         self.data = list()
         current_dir = dirname(__file__)
-        for filename in os.listdir(join(current_dir, 'infoblocks')):
+        for filename in sorted(os.listdir(join(current_dir, 'infoblocks'))):
             self.data.append({'text': filename})
 
 
@@ -76,7 +76,7 @@ class ImageScreen(Screen):
             if self.image_base not in self.filenames.keys():
                 self.filenames[self.image_base] = list()
                 current_dir = dirname(__file__)
-                for filename in glob(join(current_dir, 'infoblocks', self.image_base, '*')):
+                for filename in sorted(glob(join(current_dir, 'infoblocks', self.image_base, '*'))):
                     self.filenames[self.image_base].append(filename)
 
             # Find image parent
@@ -122,6 +122,6 @@ class MnemoApp(App):
 
 if __name__ == '__main__':
     # 1080x2160 pixels
-    Config.set('graphics', 'width', 270)
-    Config.set('graphics', 'height', 540)
+    # Config.set('graphics', 'width', 500)
+    # Config.set('graphics', 'height', 1000)
     MnemoApp().run()

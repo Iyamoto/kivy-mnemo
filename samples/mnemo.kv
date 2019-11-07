@@ -7,18 +7,18 @@
             color: 1,0.5,0.2,1
             text: "Recall base"
             size_hint_y: 1
-            font_size: '20sp'
+            font_size: '30sp'
             on_press: root.manager.current = 'list'
         Button:
             color: 1,0.5,0.2,1
             text: "Recall numbers"
             size_hint_y: 1
-            font_size: '20sp'
+            font_size: '30sp'
 #            on_press: root.manager.current = 'image'
         Button:
             color: 1,0.5,0.2,1
             text: "TBD"
-            font_size: '20sp'
+            font_size: '30sp'
             size_hint_y: 1
 
 <ListScreen@Screen>:
@@ -26,6 +26,7 @@
         orientation: "vertical"
         Label:
             color: 1,0.5,0.2,1
+            font_size: '20sp'
             text: "Choose base"
             size_hint_y: 0.1
         BoxLayout:
@@ -40,6 +41,7 @@
 
 <ListBases@RecycleView>:
     rv_layout: layout
+    font_size: '40sp'
     viewclass: 'SelectableButton'
     SelectableRecycleBoxLayout:
         id: layout
