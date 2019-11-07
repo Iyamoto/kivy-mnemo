@@ -1,7 +1,7 @@
 <MenuScreen@Screen>:
     BoxLayout:
-        padding: dp(5)
-        spacing: dp(5)
+        padding: '5dp'
+        spacing: '5dp'
         orientation: "vertical"
         Button:
             color: 1,0.5,0.2,1
@@ -23,8 +23,8 @@
 
 <ListScreen@Screen>:
     BoxLayout:
-        padding: 10
-        spacing: 10
+        padding: '5dp'
+        spacing: '5dp'
         orientation: "vertical"
         Label:
             color: 1,0.5,0.2,1
@@ -57,23 +57,23 @@
     BoxLayout:
         id: image_box
         orientation: "vertical"
-        BoxLayout:
+        RelativeLayout:
             size_hint_y: 0.9
-            size_hint_x: 1
+
         BoxLayout:
-            padding: 5
-            spacing: 5
+            padding: '5dp'
+            spacing: '5dp'
             orientation: "horizontal"
             size_hint_y: 0.1
             Button:
                 color: 1,0.5,0.2,1
-                font_size: 20
+                font_size: '20sp'
                 text: "Next image"
                 size_hint_x: 1
                 on_press: root.show_picture()
             Button:
                 color: 1,0.5,0.2,1
-                font_size: 20
+                font_size: '20sp'
                 text: "Menu"
                 size_hint_x: 1
                 on_press: root.manager.current = 'menu'
