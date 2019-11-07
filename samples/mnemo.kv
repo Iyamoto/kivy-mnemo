@@ -87,11 +87,11 @@
 
 <Picture@Scatter>:
     rotation: -90
-    pos_hint: {'top': 0.9}
+    pos_hint: {'top': 1}
     Image:
         id: image
         source: root.source
-        allow_stretch: True
-        keep_ratio: False
-        size: dp(400), dp(400) / self.image_ratio
+        allow_stretch: False
+        keep_ratio: True
+        size: root.height - dp(5), root.width - dp(5)
 
