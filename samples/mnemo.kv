@@ -14,7 +14,9 @@
             text: "Recall numbers"
             size_hint_y: 1
             font_size: '30sp'
-#            on_press: root.manager.current = 'image'
+            on_press:
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'number'
         Button:
             color: 1,0.5,0.2,1
             text: "TBD"
@@ -81,10 +83,36 @@
                 size_hint_x: 1
                 on_press: root.show_image()
 
-
+<NumberScreen@Screen>:
+    BoxLayout:
+        id: image_box
+        orientation: "vertical"
+        RelativeLayout:
+            size_hint_y: 0.9
+        BoxLayout:
+            padding: '5dp'
+            spacing: '5dp'
+            orientation: "horizontal"
+            size_hint_y: 0.1
+            Button:
+                color: 1,0.5,0.2,1
+                font_size: '20sp'
+                text: "Menu"
+                size_hint_x: 1
+                on_press: root.manager.current = 'menu'
+            Button:
+                color: 1,0.5,0.2,1
+                font_size: '20sp'
+                text: "Pause"
+                size_hint_x: 1
+                on_press: root.pause()
 
 <Picture@Scatter>:
     pos_hint: {'top': 1}
+    do_rotation: False
+    do_scale: False
+    do_scroll: False
+    do_translation: False
     Image:
         id: image
         source: root.source

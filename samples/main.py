@@ -1,10 +1,12 @@
 """R&D staff"""
 
-__version__ = '0.23'
+__version__ = '0.3'
 
 from glob import glob, os
 from os.path import join, dirname
+from random import shuffle
 from kivy.app import App
+from kivy.clock import Clock
 from kivy.uix.scatter import Scatter
 from kivy.uix.recycleview.views import RecycleDataViewBehavior
 from kivy.uix.button import Button
@@ -96,6 +98,58 @@ class ImageScreen(Screen):
                 self.file_index[self.image_base] = 0
 
 
+class NumberScreen(Screen):
+    def __init__(self, **kwargs):
+        super(NumberScreen, self).__init__(**kwargs)
+        self.filenames = list()
+        self.index = 0
+        self.event = None
+        self.timeout = 3
+        current_dir = dirname(__file__)
+        for filename in sorted(glob(join(current_dir, 'numbers',  '*'))):
+            self.filenames.append(filename)
+
+    def clear_image(self):
+        # Find image parent
+        image_box = self.children[0]
+        image = image_box.children[1]
+        image.clear_widgets()
+
+    def show_image(self, dt=None):
+        # Find image parent
+        image_box = self.children[0]
+        image = image_box.children[1]
+        image.clear_widgets()
+
+        # Load the image
+        picture = Picture(source=self.filenames[self.index])
+        self.index += 1
+        if self.index >= len(self.filenames):
+            self.index = 0
+            shuffle(self.filenames)
+
+        image.add_widget(picture)
+
+    def on_leave(self):
+        if self.event:
+            self.event.cancel()
+
+    def pause(self):
+        if self.event:
+            self.event.cancel()
+            self.event = None
+        else:
+            self.event = Clock.schedule_interval(self.show_image, self.timeout)
+
+    def on_pre_enter(self):
+        self.clear_image()
+        self.show_image()
+
+    def on_enter(self):
+        shuffle(self.filenames)
+        self.event = Clock.schedule_interval(self.show_image, self.timeout)
+
+
 class Picture(Scatter):
     source = StringProperty(None)
 
@@ -110,6 +164,7 @@ class MnemoApp(App):
         self.sm.add_widget(MenuScreen(name='menu'))
         self.sm.add_widget(ListScreen(name='list'))
         self.sm.add_widget(ImageScreen(name='image'))
+        self.sm.add_widget(NumberScreen(name='number'))
         return self.sm
 
     def switch_to_image(self, base=''):
