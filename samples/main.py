@@ -1,6 +1,6 @@
 """R&D staff"""
 
-__version__ = '0.3'
+__version__ = '0.30'
 
 from glob import glob, os
 from os.path import join, dirname
