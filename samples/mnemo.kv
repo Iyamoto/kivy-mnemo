@@ -20,6 +20,11 @@
             text: "TBD"
             font_size: '30sp'
             size_hint_y: 1
+        Button:
+            color: 1,0.5,0.2,1
+            text: "TBD"
+            font_size: '30sp'
+            size_hint_y: 1
 
 <ListScreen@Screen>:
     BoxLayout:
@@ -30,7 +35,7 @@
             text: "Choose base"
             size_hint_y: 0.1
         BoxLayout:
-            size_hint_y: 0.9
+            size_hint_y: 0.8
             ListBases:
         Button:
             color: 1,0.5,0.2,1
@@ -41,7 +46,6 @@
 
 <ListBases@RecycleView>:
     rv_layout: layout
-    font_size: '40sp'
     viewclass: 'SelectableButton'
     SelectableRecycleBoxLayout:
         id: layout
@@ -59,7 +63,6 @@
         orientation: "vertical"
         RelativeLayout:
             size_hint_y: 0.9
-
         BoxLayout:
             padding: '5dp'
             spacing: '5dp'
@@ -68,15 +71,16 @@
             Button:
                 color: 1,0.5,0.2,1
                 font_size: '20sp'
-                text: "Next image"
-                size_hint_x: 1
-                on_press: root.show_image()
-            Button:
-                color: 1,0.5,0.2,1
-                font_size: '20sp'
                 text: "Menu"
                 size_hint_x: 1
                 on_press: root.manager.current = 'menu'
+            Button:
+                color: 1,0.5,0.2,1
+                font_size: '20sp'
+                text: "Next image"
+                size_hint_x: 1
+                on_press: root.show_image()
+
 
 
 <Picture@Scatter>:

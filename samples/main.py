@@ -40,7 +40,7 @@ class SelectableButton(RecycleDataViewBehavior, Button):
         self.index = index
         return super(SelectableButton, self).refresh_view_attrs(rv, index, data)
 
-    def on_release(self):
+    def on_press(self):
         App.get_running_app().switch_to_image(base=self.text)
 
 
