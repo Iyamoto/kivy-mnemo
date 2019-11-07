@@ -14,7 +14,7 @@
             text: "Recall numbers"
             size_hint_y: 1
             font_size: '20sp'
-            on_press: root.manager.current = 'image'
+#            on_press: root.manager.current = 'image'
         Button:
             color: 1,0.5,0.2,1
             text: "TBD"
@@ -23,22 +23,11 @@
 
 <ListScreen@Screen>:
     BoxLayout:
-        padding: '5dp'
-        spacing: '5dp'
         orientation: "vertical"
         Label:
             color: 1,0.5,0.2,1
             text: "Choose base"
             size_hint_y: 0.1
-        Label:
-            canvas.before:
-                Color:
-                    rgba: (1,1,1,1)
-                Rectangle:
-                    size: self.size
-                    pos: self.pos
-            size_hint_y: None
-            height: 1
         BoxLayout:
             size_hint_y: 0.9
             ListBases:
@@ -50,14 +39,17 @@
             on_press: root.manager.current = 'menu'
 
 <ListBases@RecycleView>:
-    viewclass: 'Label'
-    RecycleBoxLayout:
-        default_size: None, dp(56)
+    rv_layout: layout
+    viewclass: 'SelectableButton'
+    SelectableRecycleBoxLayout:
+        id: layout
+        padding: '5dp'
+        spacing: '5dp'
+        default_size: None, dp(40)
         default_size_hint: 1, None
         size_hint_y: None
         height: self.minimum_height
         orientation: 'vertical'
-
 
 <ImageScreen@Screen>:
     BoxLayout:
@@ -76,7 +68,7 @@
                 font_size: '20sp'
                 text: "Next image"
                 size_hint_x: 1
-                on_press: root.show_picture()
+                on_press: root.show_image()
             Button:
                 color: 1,0.5,0.2,1
                 font_size: '20sp'
