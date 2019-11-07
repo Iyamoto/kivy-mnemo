@@ -86,12 +86,11 @@
 
 
 <Picture@Scatter>:
-    rotation: -90
     pos_hint: {'top': 1}
     Image:
         id: image
         source: root.source
         allow_stretch: False
         keep_ratio: True
-        size: root.height - dp(5), root.width - dp(5)
+        size: root.width - dp(5), root.height - dp(5)
 

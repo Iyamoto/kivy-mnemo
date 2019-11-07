@@ -1,14 +1,12 @@
 """R&D staff"""
 
-__version__ = '0.2'
+__version__ = '0.21'
 
 from glob import glob
 from os.path import join, dirname
 from kivy.app import App
-from kivy.uix.image import Image
 from kivy.uix.scatter import Scatter
 from kivy.logger import Logger
-from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.recycleview import RecycleView
 from kivy.properties import ObjectProperty
@@ -31,24 +29,29 @@ class ListBases(RecycleView):
 
 
 class ImageScreen(Screen):
-    def show_picture(self):
-        image_box = self.children[0]
-        print(image_box)
-        image = image_box.children[1]
-        print(image)
-        image.clear_widgets()
+    def __init__(self, **kwargs):
+        super(ImageScreen, self).__init__(**kwargs)
+        self.image_base = 'home1'
+        self.filenames = list()
+        self.file_index = 0
 
         # Get any files into images directory
         curdir = dirname(__file__)
-        for filename in glob(join(curdir, 'images', '*')):
-            try:
-                # load the image
-                picture = Picture(source=filename)
-                image.add_widget(picture)
-            except Exception as e:
-                Logger.exception('Pictures: Unable to load <%s>' % filename)
-            print(filename)
-            break
+        for filename in glob(join(curdir, 'infoblocks', self.image_base, '*')):
+            self.filenames.append(filename)
+
+    def show_picture(self):
+        # Find image parent
+        image_box = self.children[0]
+        image = image_box.children[1]
+        image.clear_widgets()
+
+        # load the image
+        picture = Picture(source=self.filenames[self.file_index])
+        image.add_widget(picture)
+        self.file_index += 1
+        if self.file_index >= len(self.filenames):
+            self.file_index = 0
 
 
 class Picture(Scatter):
