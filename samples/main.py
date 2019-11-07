@@ -9,6 +9,7 @@ from kivy.uix.image import Image
 from kivy.logger import Logger
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.recycleview import RecycleView
 from kivy.properties import ObjectProperty
 from kivy.properties import StringProperty
 from kivy.config import Config
@@ -16,6 +17,16 @@ from kivy.config import Config
 
 class MenuScreen(Screen):
     pass
+
+
+class ListScreen(Screen):
+    pass
+
+
+class ListBases(RecycleView):
+    def __init__(self, **kwargs):
+        super(ListBases, self).__init__(**kwargs)
+        self.data = [{'text': 'home1'}, {'text': 'home2'}]
 
 
 class ImageScreen(Screen):
@@ -48,6 +59,7 @@ class MnemoApp(App):
         # Create the screen manager
         sm = ScreenManager()
         sm.add_widget(MenuScreen(name='menu'))
+        sm.add_widget(ListScreen(name='list'))
         sm.add_widget(ImageScreen(name='image'))
         return sm
 
