@@ -1,6 +1,6 @@
 """R&D staff"""
 
-__version__ = '0.30'
+__version__ = '0.31'
 
 from glob import glob, os
 from os.path import join, dirname
@@ -99,12 +99,14 @@ class ImageScreen(Screen):
 
 
 class NumberScreen(Screen):
+    user_input = ObjectProperty()
+
     def __init__(self, **kwargs):
         super(NumberScreen, self).__init__(**kwargs)
         self.filenames = list()
         self.index = 0
         self.event = None
-        self.timeout = 3
+        self.timeout = 5
         current_dir = dirname(__file__)
         for filename in sorted(glob(join(current_dir, 'numbers',  '*'))):
             self.filenames.append(filename)
@@ -133,6 +135,9 @@ class NumberScreen(Screen):
     def on_leave(self):
         if self.event:
             self.event.cancel()
+
+    def change_timeout(self):
+        self.timeout = self.user_input.text
 
     def pause(self):
         if self.event:
