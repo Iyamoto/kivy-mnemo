@@ -1,6 +1,6 @@
 """R&D staff"""
 
-__version__ = '0.31'
+__version__ = '0.32'
 
 from glob import glob, os
 from os.path import join, dirname
@@ -136,8 +136,11 @@ class NumberScreen(Screen):
         if self.event:
             self.event.cancel()
 
-    def change_timeout(self):
-        self.timeout = self.user_input.text
+    def update_timeout(self):
+        self.timeout = int(self.user_input.text)
+        if self.event:
+            self.event.cancel()
+            self.event = Clock.schedule_interval(self.show_image, self.timeout)
 
     def pause(self):
         if self.event:

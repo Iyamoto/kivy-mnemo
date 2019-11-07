@@ -98,23 +98,28 @@
                 color: 1,0.5,0.2,1
                 font_size: '20sp'
                 text: "Menu"
-                size_hint_x: 1
+                size_hint_x: 0.3
                 on_press: root.manager.current = 'menu'
             TextInput:
                 id: timeout_box
                 multiline: False
                 color: 1,0.5,0.2,1
-                font_size: '25sp'
+                font_size: '30sp'
                 halign: 'center'
                 valign: 'center'
                 text: "5"
-                size_hint_x: 1
-                on_text_validate: root.change_timeout()
+                size_hint_x: 0.1
+            Button:
+                color: 1,0.5,0.2,1
+                font_size: '20sp'
+                text: "Update"
+                size_hint_x: 0.3
+                on_press: root.update_timeout()
             Button:
                 color: 1,0.5,0.2,1
                 font_size: '20sp'
                 text: "Pause"
-                size_hint_x: 1
+                size_hint_x: 0.3
                 on_press: root.pause()
 
 <Picture@Scatter>:
