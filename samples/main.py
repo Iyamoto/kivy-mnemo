@@ -1,6 +1,6 @@
 """R&D staff"""
 
-__version__ = '0.33'
+__version__ = '0.34'
 
 from glob import glob, os
 from os.path import join, dirname
@@ -56,6 +56,7 @@ class ListBases(RecycleView):
 
 
 class ImageScreen(Screen):
+    """Handles screen for Base images"""
     def __init__(self, **kwargs):
         super(ImageScreen, self).__init__(**kwargs)
 
@@ -85,8 +86,6 @@ class ImageScreen(Screen):
         # Swipe left
         if (self.initial - touch.x) > 50:
             self.show_previous_image()
-
-    # what happens if there is no move
 
     def clear_image(self):
         self.image_parent.clear_widgets()
@@ -119,6 +118,7 @@ class ImageScreen(Screen):
 
 
 class NumberScreen(Screen):
+    """Handles screen for Number codes"""
     user_input = ObjectProperty()
 
     def __init__(self, **kwargs):
@@ -131,17 +131,14 @@ class NumberScreen(Screen):
         for filename in sorted(glob(join(current_dir, 'numbers',  '*'))):
             self.filenames.append(filename)
 
-    def clear_image(self):
-        # Find image parent
         image_box = self.children[0]
-        image = image_box.children[1]
-        image.clear_widgets()
+        self.image_parent = image_box.children[1]
+
+    def clear_image(self):
+        self.image_parent.clear_widgets()
 
     def show_image(self, dt=None):
-        # Find image parent
-        image_box = self.children[0]
-        image = image_box.children[1]
-        image.clear_widgets()
+        self.clear_image()
 
         # Load the image
         picture = Picture(source=self.filenames[self.index])
@@ -150,7 +147,7 @@ class NumberScreen(Screen):
             self.index = 0
             shuffle(self.filenames)
 
-        image.add_widget(picture)
+        self.image_parent.add_widget(picture)
 
     def on_leave(self):
         if self.event:
