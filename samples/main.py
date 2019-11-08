@@ -7,6 +7,7 @@ from os.path import join, dirname
 from random import shuffle
 from kivy.app import App
 from kivy.clock import Clock
+from kivy.uix.rst import RstDocument
 from kivy.uix.scatter import Scatter
 from kivy.uix.recycleview.views import RecycleDataViewBehavior
 from kivy.uix.button import Button
@@ -30,15 +31,13 @@ class LessonsScreen(Screen):
     def __init__(self, **kwargs):
         super(LessonsScreen, self).__init__(**kwargs)
 
-        self.text = ''
-
         current_dir = dirname(__file__)
         lesson_file = '1.md'
         file_path = join(current_dir, 'lessons', lesson_file)
+        self.text = ''
         with open(file_path, encoding="utf8") as fobj:
             for line in fobj:
                 self.text += line
-
 
 
 class ListScreen(Screen):

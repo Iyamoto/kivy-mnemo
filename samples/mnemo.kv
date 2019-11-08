@@ -14,9 +14,7 @@
             text: "Recall numbers"
             size_hint_y: 1
             font_size: '30sp'
-            on_press:
-                root.manager.transition.direction = 'right'
-                root.manager.current = 'number'
+            on_press: root.manager.current = 'number'
         Button:
             color: 1,0.5,0.2,1
             text: "Train numbers"
