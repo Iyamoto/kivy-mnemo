@@ -72,13 +72,27 @@ class ImageScreen(Screen):
         image_box = self.children[0]
         self.image_parent = image_box.children[1]
 
+        self.initial = 0
+
+    def on_touch_down(self, touch):
+        self.initial = touch.x
+
+    def on_touch_up(self, touch):
+        # Swipe right
+        if (touch.x - self.initial) > 50:
+            self.show_next_image()
+
+        # Swipe left
+        if (self.initial - touch.x) > 50:
+            self.show_previous_image()
+
+    # what happens if there is no move
+
     def clear_image(self):
         self.image_parent.clear_widgets()
 
     def show_previous_image(self):
         self.clear_image()
-
-        print(self.file_index[self.image_base])
 
         if self.image_base not in self.file_index.keys():
             self.file_index[self.image_base] = 0
@@ -92,8 +106,6 @@ class ImageScreen(Screen):
 
     def show_next_image(self):
         self.clear_image()
-
-        print(self.file_index[self.image_base])
 
         if self.image_base not in self.file_index.keys():
             self.file_index[self.image_base] = 0
