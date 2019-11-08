@@ -58,10 +58,10 @@ class ListBases(RecycleView):
             self.data.append({'text': dir_name})
 
 
-class ImageScreen(Screen):
+class BaseImageScreen(Screen):
     """Handles screen for Base images"""
     def __init__(self, **kwargs):
-        super(ImageScreen, self).__init__(**kwargs)
+        super(BaseImageScreen, self).__init__(**kwargs)
         self.filenames = None
         self.image_base = ''
         self.file_index = dict()
@@ -197,7 +197,7 @@ class MnemoApp(App):
         # Create the screen manager
         self.sm.add_widget(MenuScreen(name='menu'))
         self.sm.add_widget(ListScreen(name='list'))
-        self.sm.add_widget(ImageScreen(name='image'))
+        self.sm.add_widget(BaseImageScreen(name='image'))
         self.sm.add_widget(NumberScreen(name='number'))
         self.sm.add_widget(LessonsScreen(name='lessons'))
         return self.sm
