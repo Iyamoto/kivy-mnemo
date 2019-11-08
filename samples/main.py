@@ -1,6 +1,6 @@
 """R&D staff"""
 
-__version__ = '0.34'
+__version__ = '0.35'
 
 from glob import glob, os
 from os.path import join, dirname
@@ -22,6 +22,23 @@ from kivy.config import Config
 
 class MenuScreen(Screen):
     pass
+
+
+class LessonsScreen(Screen):
+    text = StringProperty(None)
+
+    def __init__(self, **kwargs):
+        super(LessonsScreen, self).__init__(**kwargs)
+
+        self.text = ''
+
+        current_dir = dirname(__file__)
+        lesson_file = '1.md'
+        file_path = join(current_dir, 'lessons', lesson_file)
+        with open(file_path, encoding="utf8") as fobj:
+            for line in fobj:
+                self.text += line
+
 
 
 class ListScreen(Screen):
@@ -195,6 +212,7 @@ class MnemoApp(App):
         self.sm.add_widget(ListScreen(name='list'))
         self.sm.add_widget(ImageScreen(name='image'))
         self.sm.add_widget(NumberScreen(name='number'))
+        self.sm.add_widget(LessonsScreen(name='lessons'))
         return self.sm
 
     def switch_to_image(self, base=''):
