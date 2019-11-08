@@ -9,7 +9,7 @@
             text: "Recall base"
             size_hint_y: 1
             font_size: '30sp'
-            on_press: root.manager.current = 'list'
+            on_press: root.manager.current = 'bases_list'
         Button:
             color: 1,0.5,0.2,1
             text: "Recall numbers"
@@ -26,14 +26,14 @@
             text: "Lessons"
             font_size: '30sp'
             size_hint_y: 1
-            on_press: root.manager.current = 'lessons'
+            on_press: root.manager.current = 'lessons_list'
         Button:
             color: 1,0.5,0.2,1
             text: "Advanced training"
             font_size: '30sp'
             size_hint_y: 1
 
-<ListScreen@Screen>:
+<BasesListScreen@Screen>:
     BoxLayout:
         padding: '5dp'
         spacing: '5dp'
@@ -53,11 +53,11 @@
             size_hint_y: 0.1
             on_press: root.manager.current = 'menu'
 
-<SelectableButton>
+<BaseButton>
     font_size: '20sp'
 
 <ListBases@RecycleView>:
-    viewclass: 'SelectableButton'
+    viewclass: 'BaseButton'
     RecycleBoxLayout:
         padding: '5dp'
         spacing: '5dp'
@@ -147,6 +147,40 @@
         allow_stretch: False
         keep_ratio: True
         size: root.width - dp(5), root.height - dp(5)
+
+<LessonsListScreen@Screen>:
+    BoxLayout:
+        padding: '5dp'
+        spacing: '5dp'
+        orientation: "vertical"
+        Label:
+            color: 1,0.5,0.2,1
+            font_size: '20sp'
+            text: "Choose lesson"
+            size_hint_y: 0.1
+        BoxLayout:
+            size_hint_y: 0.8
+            ListLessons:
+        Button:
+            color: 1,0.5,0.2,1
+            font_size: '20sp'
+            text: "MENU"
+            size_hint_y: 0.1
+            on_press: root.manager.current = 'menu'
+
+<LessonButton>
+    font_size: '20sp'
+
+<ListLessons@RecycleView>:
+    viewclass: 'LessonButton'
+    RecycleBoxLayout:
+        padding: '5dp'
+        spacing: '5dp'
+        default_size: None, dp(60)
+        default_size_hint: 1, None
+        size_hint_y: None
+        height: self.minimum_height
+        orientation: 'vertical'
 
 <LessonsScreen@Screen>:
     BoxLayout:

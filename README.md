@@ -6,4 +6,5 @@ Mnemonic training
     
 # Useful stuff
     https://www.rapidtables.com/web/color/RGB_Color.html
+    http://docutils.sourceforge.net/docs/user/rst/quickref.html
     

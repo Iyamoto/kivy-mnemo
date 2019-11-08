@@ -1,6 +1,6 @@
 """R&D staff"""
 
-__version__ = '0.35'
+__version__ = '0.41'
 
 from glob import glob, os
 from os.path import join, dirname
@@ -26,31 +26,33 @@ class LessonsScreen(Screen):
 
     def __init__(self, **kwargs):
         super(LessonsScreen, self).__init__(**kwargs)
-
-        current_dir = dirname(__file__)
-        lesson_file = '1.md'
-        file_path = join(current_dir, 'lessons', lesson_file)
+        self.lesson_file = ''
         self.text = ''
+
+    def on_pre_enter(self):
+        current_dir = dirname(__file__)
+        file_path = join(current_dir, 'lessons', self.lesson_file)
+
         with open(file_path, encoding="utf8") as fobj:
             for line in fobj:
                 self.text += line
 
 
-class ListScreen(Screen):
+class LessonsListScreen(Screen):
     pass
 
 
-class SelectableButton(RecycleDataViewBehavior, Button):
+class LessonButton(RecycleDataViewBehavior, Button):
     def on_press(self):
-        App.get_running_app().switch_to_image(base=self.text)
+        App.get_running_app().switch_to_lesson(base=self.text)
 
 
-class ListBases(RecycleView):
+class ListLessons(RecycleView):
     def __init__(self, **kwargs):
-        super(ListBases, self).__init__(**kwargs)
+        super(ListLessons, self).__init__(**kwargs)
         self.data = list()
         current_dir = dirname(__file__)
-        for dir_name in sorted(os.listdir(join(current_dir, 'infoblocks'))):
+        for dir_name in sorted(os.listdir(join(current_dir, 'lessons'))):
             self.data.append({'text': dir_name})
 
 
@@ -128,6 +130,24 @@ class BaseImageScreen(Screen):
         self.image_parent.add_widget(picture)
 
 
+class BasesListScreen(Screen):
+    pass
+
+
+class BaseButton(RecycleDataViewBehavior, Button):
+    def on_press(self):
+        App.get_running_app().switch_to_image(base=self.text)
+
+
+class ListBases(RecycleView):
+    def __init__(self, **kwargs):
+        super(ListBases, self).__init__(**kwargs)
+        self.data = list()
+        current_dir = dirname(__file__)
+        for dir_name in sorted(os.listdir(join(current_dir, 'infoblocks'))):
+            self.data.append({'text': dir_name})
+
+
 class NumberScreen(Screen):
     """Handles screen for Number codes"""
     user_input = ObjectProperty()
@@ -199,9 +219,10 @@ class MnemoApp(App):
     def build(self):
         # Create the screen manager
         self.sm.add_widget(MenuScreen(name='menu'))
-        self.sm.add_widget(ListScreen(name='list'))
+        self.sm.add_widget(BasesListScreen(name='bases_list'))
         self.sm.add_widget(BaseImageScreen(name='image'))
         self.sm.add_widget(NumberScreen(name='number'))
+        self.sm.add_widget(LessonsListScreen(name='lessons_list'))
         self.sm.add_widget(LessonsScreen(name='lessons'))
         return self.sm
 
@@ -211,6 +232,10 @@ class MnemoApp(App):
         self.sm.screens[2].file_index[base] = -1
         self.sm.screens[2].show_next_image()
         self.sm.current = 'image'
+
+    def switch_to_lesson(self, base=''):
+        self.sm.screens[5].lesson_file = base
+        self.sm.current = 'lessons'
 
 
 if __name__ == '__main__':
