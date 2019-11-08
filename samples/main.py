@@ -1,6 +1,6 @@
 """R&D staff"""
 
-__version__ = '0.32'
+__version__ = '0.33'
 
 from glob import glob, os
 from os.path import join, dirname
@@ -75,19 +75,35 @@ class ImageScreen(Screen):
     def clear_image(self):
         self.image_parent.clear_widgets()
 
-    def show_next_image(self):
+    def show_previous_image(self):
         self.clear_image()
 
-        # Load the image
+        print(self.file_index[self.image_base])
+
         if self.image_base not in self.file_index.keys():
             self.file_index[self.image_base] = 0
+
+        self.file_index[self.image_base] -= 1
+        if self.file_index[self.image_base] < 0:
+            self.file_index[self.image_base] = len(self.filenames[self.image_base])-1
 
         picture = Picture(source=self.filenames[self.image_base][self.file_index[self.image_base]])
         self.image_parent.add_widget(picture)
 
+    def show_next_image(self):
+        self.clear_image()
+
+        print(self.file_index[self.image_base])
+
+        if self.image_base not in self.file_index.keys():
+            self.file_index[self.image_base] = 0
+
         self.file_index[self.image_base] += 1
         if self.file_index[self.image_base] >= len(self.filenames[self.image_base]):
             self.file_index[self.image_base] = 0
+
+        picture = Picture(source=self.filenames[self.image_base][self.file_index[self.image_base]])
+        self.image_parent.add_widget(picture)
 
 
 class NumberScreen(Screen):
@@ -170,7 +186,7 @@ class MnemoApp(App):
     def switch_to_image(self, base=''):
         self.sm.screens[2].clear_image()
         self.sm.screens[2].image_base = base
-        self.sm.screens[2].file_index[base] = 0
+        self.sm.screens[2].file_index[base] = -1
         self.sm.screens[2].show_next_image()
         self.sm.current = 'image'
 
