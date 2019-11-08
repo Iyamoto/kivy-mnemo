@@ -88,7 +88,6 @@
 
 <ImageScreen@Screen>:
     BoxLayout:
-        id: image_box
         orientation: "vertical"
         RelativeLayout:
             size_hint_y: 0.9
@@ -108,7 +107,8 @@
                 font_size: '20sp'
                 text: "MENU"
                 size_hint_x: 1
-                on_press: root.manager.current = 'menu'
+#                on_press: root.manager.current = 'menu'
+                on_press: print(help(root))
             Button:
                 color: 1,0.5,0.2,1
                 font_size: '20sp'
