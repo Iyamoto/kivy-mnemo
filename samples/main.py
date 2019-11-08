@@ -47,8 +47,6 @@ class SelectableButton(RecycleDataViewBehavior, Button):
 
 
 class ListBases(RecycleView):
-    rv_layout = ObjectProperty(None)
-
     def __init__(self, **kwargs):
         super(ListBases, self).__init__(**kwargs)
         self.data = list()

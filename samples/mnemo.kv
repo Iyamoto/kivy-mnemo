@@ -57,10 +57,8 @@
     font_size: '20sp'
 
 <ListBases@RecycleView>:
-    rv_layout: layout
     viewclass: 'SelectableButton'
     SelectableRecycleBoxLayout:
-        id: layout
         padding: '5dp'
         spacing: '5dp'
         default_size: None, dp(60)
@@ -80,6 +78,12 @@
             spacing: '5dp'
             orientation: "horizontal"
             size_hint_y: 0.1
+            Button:
+                color: 1,0.5,0.2,1
+                font_size: '20sp'
+                text: "Previous image"
+                size_hint_x: 1
+                on_press: root.show_previous_image()
             Button:
                 color: 1,0.5,0.2,1
                 font_size: '20sp'
