@@ -217,13 +217,33 @@ class NumberTrainingScreen(Screen):
 
     def __init__(self, **kwargs):
         super(NumberTrainingScreen, self).__init__(**kwargs)
-        self.codes = None
+        self.codes = list()
+        for i in range(100):
+            if i < 10:
+                code = '0' + str(i)
+            else:
+                code = str(i)
+            self.codes.append(code)
         self.index = 0
         self.event = None
-        self.timeout = 7
+        self.timeout = 2
+        self.limit = 2
 
     def start(self):
-        pass
+        self.output.text = '..'
+        shuffle(self.codes)
+        self.event = Clock.schedule_interval(self.show_code, self.timeout)
+
+    def show_code(self, dt=None):
+        self.output.text = self.codes[self.index]
+        self.index += 1
+        if self.index >= self.limit:
+            self.event.cancel()
+            self.event = Clock.schedule_once(self.check_codes, self.timeout)
+
+    def check_codes(self, dt=None):
+        self.index = 0
+        self.output.text = ''
 
     def update_timeout(self):
         self.timeout = int(self.user_input.text)
@@ -231,7 +251,6 @@ class NumberTrainingScreen(Screen):
     def on_pre_enter(self):
         self.output.text = ''
         self.user_input.text = str(self.timeout)
-
 
 
 class MnemoApp(App):
