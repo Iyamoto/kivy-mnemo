@@ -44,20 +44,7 @@ class ListScreen(Screen):
     pass
 
 
-class SelectableRecycleBoxLayout(FocusBehavior, LayoutSelectionBehavior, RecycleBoxLayout):
-    """ Adds selection and focus behaviour to the view. """
-    pass
-
-
 class SelectableButton(RecycleDataViewBehavior, Button):
-    """ Add selection support to the Button"""
-    index = None
-
-    def refresh_view_attrs(self, rv, index, data):
-        """ Catch and handle the view changes """
-        self.index = index
-        return super(SelectableButton, self).refresh_view_attrs(rv, index, data)
-
     def on_press(self):
         App.get_running_app().switch_to_image(base=self.text)
 
@@ -95,6 +82,7 @@ class ImageScreen(Screen):
 
     def on_touch_down(self, touch):
         self.initial = touch.x
+        # print(help(self))
 
     def on_touch_up(self, touch):
         # Swipe right

@@ -1,3 +1,4 @@
+
 <MenuScreen@Screen>:
     BoxLayout:
         padding: '5dp'
@@ -52,32 +53,12 @@
             size_hint_y: 0.1
             on_press: root.manager.current = 'menu'
 
-<LessonsScreen@Screen>:
-    BoxLayout:
-        padding: '5dp'
-        spacing: '5dp'
-        orientation: "vertical"
-        Label:
-            color: 1,0.5,0.2,1
-            font_size: '20sp'
-            text: "Lessons"
-            size_hint_y: 0.1
-        RstDocument:
-            background_color: 0.75,0.73,0.73,1
-            text: root.text
-        Button:
-            color: 1,0.5,0.2,1
-            font_size: '20sp'
-            text: "MENU"
-            size_hint_y: 0.1
-            on_press: root.manager.current = 'menu'
-
 <SelectableButton>
     font_size: '20sp'
 
 <ListBases@RecycleView>:
     viewclass: 'SelectableButton'
-    SelectableRecycleBoxLayout:
+    RecycleBoxLayout:
         padding: '5dp'
         spacing: '5dp'
         default_size: None, dp(60)
@@ -107,8 +88,9 @@
                 font_size: '20sp'
                 text: "MENU"
                 size_hint_x: 1
-#                on_press: root.manager.current = 'menu'
-                on_press: print(help(root))
+                on_press: root.manager.current = 'menu'
+                on_state:
+                    print(root)
             Button:
                 color: 1,0.5,0.2,1
                 font_size: '20sp'
@@ -169,3 +151,22 @@
         keep_ratio: True
         size: root.width - dp(5), root.height - dp(5)
 
+<LessonsScreen@Screen>:
+    BoxLayout:
+        padding: '5dp'
+        spacing: '5dp'
+        orientation: "vertical"
+        Label:
+            color: 1,0.5,0.2,1
+            font_size: '20sp'
+            text: "Lessons"
+            size_hint_y: 0.1
+        RstDocument:
+            background_color: 0.75,0.73,0.73,1
+            text: root.text
+        Button:
+            color: 1,0.5,0.2,1
+            font_size: '20sp'
+            text: "MENU"
+            size_hint_y: 0.1
+            on_press: root.manager.current = 'menu'
