@@ -213,7 +213,8 @@ class Picture(Scatter):
 
 class NumberTrainingScreen(Screen):
     output = ObjectProperty()
-    user_input = ObjectProperty()
+    user_input_timeout = ObjectProperty()
+    user_input_limit = ObjectProperty()
 
     def __init__(self, **kwargs):
         super(NumberTrainingScreen, self).__init__(**kwargs)
@@ -226,8 +227,8 @@ class NumberTrainingScreen(Screen):
             self.codes.append(code)
         self.index = 0
         self.event = None
-        self.timeout = 2
-        self.limit = 2
+        self.timeout = 7
+        self.limit = 10
 
     def start(self):
         self.output.text = '..'
@@ -246,11 +247,13 @@ class NumberTrainingScreen(Screen):
         self.output.text = ''
 
     def update_timeout(self):
-        self.timeout = int(self.user_input.text)
+        self.timeout = int(self.user_input_timeout.text)
+        self.limit = int(self.user_input_limit.text)
 
     def on_pre_enter(self):
         self.output.text = ''
-        self.user_input.text = str(self.timeout)
+        self.user_input_timeout.text = str(self.timeout)
+        self.user_input_limit.text = str(self.limit)
 
 
 class MnemoApp(App):
