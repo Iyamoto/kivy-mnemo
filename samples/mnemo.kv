@@ -35,6 +35,8 @@
             size_hint_y: 1
 
 <NumberTrainingScreen@Screen>:
+    output: number_code
+    user_input: timeout_box
     BoxLayout:
         padding: '5dp'
         spacing: '5dp'
@@ -54,16 +56,42 @@
             size_hint_y: None
             height: 1
         Label:
+            id: number_code
             size_hint_y: 0.8
             color: 0.75,0.75,0.75,1
-            text: '40'
             font_size: '200sp'
-        Button:
-            color: 1,0.5,0.2,1
-            font_size: '20sp'
-            text: "MENU"
+        BoxLayout:
+            padding: '5dp'
+            spacing: '5dp'
+            orientation: "horizontal"
             size_hint_y: 0.1
-            on_press: root.manager.current = 'menu'
+            Button:
+                color: 1,0.5,0.2,1
+                font_size: '20sp'
+                text: "MENU"
+                size_hint_x: 0.3
+                on_press: root.manager.current = 'menu'
+            TextInput:
+                id: timeout_box
+                multiline: False
+                color: 1,0.5,0.2,1
+                font_size: '30sp'
+                halign: 'center'
+                valign: 'middle'
+                text: "7"
+                size_hint_x: 0.1
+            Button:
+                color: 1,0.5,0.2,1
+                font_size: '20sp'
+                text: "UPDATE"
+                size_hint_x: 0.3
+                on_press: root.update_timeout()
+            Button:
+                color: 1,0.5,0.2,1
+                font_size: '20sp'
+                text: "START"
+                size_hint_x: 0.3
+                on_press: root.start()
 
 <BasesListScreen@Screen>:
     BoxLayout:

@@ -212,7 +212,26 @@ class Picture(Scatter):
 
 
 class NumberTrainingScreen(Screen):
-    pass
+    output = ObjectProperty()
+    user_input = ObjectProperty()
+
+    def __init__(self, **kwargs):
+        super(NumberTrainingScreen, self).__init__(**kwargs)
+        self.codes = None
+        self.index = 0
+        self.event = None
+        self.timeout = 7
+
+    def start(self):
+        pass
+
+    def update_timeout(self):
+        self.timeout = int(self.user_input.text)
+
+    def on_pre_enter(self):
+        self.output.text = ''
+        self.user_input.text = str(self.timeout)
+
 
 
 class MnemoApp(App):
