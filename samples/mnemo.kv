@@ -19,17 +19,24 @@
                 root.manager.current = 'number'
         Button:
             color: 1,0.5,0.2,1
-            text: "TBD"
+            text: "Train numbers"
             font_size: '30sp'
             size_hint_y: 1
         Button:
             color: 1,0.5,0.2,1
-            text: "TBD"
+            text: "Theory"
+            font_size: '30sp'
+            size_hint_y: 1
+        Button:
+            color: 1,0.5,0.2,1
+            text: "Advanced training"
             font_size: '30sp'
             size_hint_y: 1
 
 <ListScreen@Screen>:
     BoxLayout:
+        padding: '5dp'
+        spacing: '5dp'
         orientation: "vertical"
         Label:
             color: 1,0.5,0.2,1
@@ -46,6 +53,9 @@
             size_hint_y: 0.1
             on_press: root.manager.current = 'menu'
 
+<SelectableButton>
+    font_size: '20sp'
+
 <ListBases@RecycleView>:
     rv_layout: layout
     viewclass: 'SelectableButton'
@@ -53,7 +63,7 @@
         id: layout
         padding: '5dp'
         spacing: '5dp'
-        default_size: None, dp(40)
+        default_size: None, dp(60)
         default_size_hint: 1, None
         size_hint_y: None
         height: self.minimum_height
@@ -81,7 +91,7 @@
                 font_size: '20sp'
                 text: "Next image"
                 size_hint_x: 1
-                on_press: root.show_image()
+                on_press: root.show_next_image()
 
 <NumberScreen@Screen>:
     user_input: timeout_box

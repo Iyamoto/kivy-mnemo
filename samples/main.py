@@ -53,49 +53,43 @@ class ListBases(RecycleView):
         super(ListBases, self).__init__(**kwargs)
         self.data = list()
         current_dir = dirname(__file__)
-        for filename in sorted(os.listdir(join(current_dir, 'infoblocks'))):
-            self.data.append({'text': filename})
+        for dir_name in sorted(os.listdir(join(current_dir, 'infoblocks'))):
+            self.data.append({'text': dir_name})
 
 
 class ImageScreen(Screen):
     def __init__(self, **kwargs):
         super(ImageScreen, self).__init__(**kwargs)
+
         self.image_base = ''
         self.file_index = dict()
+
         self.filenames = dict()
+        current_dir = dirname(__file__)
+        for dir_name in sorted(os.listdir(join(current_dir, 'infoblocks'))):
+            self.filenames[dir_name] = list()
+            for filename in sorted(glob(join(current_dir, 'infoblocks', dir_name, '*'))):
+                self.filenames[dir_name].append(filename)
+
+        image_box = self.children[0]
+        self.image_parent = image_box.children[1]
 
     def clear_image(self):
-        # Find image parent
-        image_box = self.children[0]
-        image = image_box.children[1]
-        image.clear_widgets()
+        self.image_parent.clear_widgets()
 
-    def show_image(self):
+    def show_next_image(self):
+        self.clear_image()
 
-        if self.image_base:
+        # Load the image
+        if self.image_base not in self.file_index.keys():
+            self.file_index[self.image_base] = 0
 
-            # Get any files into images directory
-            if self.image_base not in self.filenames.keys():
-                self.filenames[self.image_base] = list()
-                current_dir = dirname(__file__)
-                for filename in sorted(glob(join(current_dir, 'infoblocks', self.image_base, '*'))):
-                    self.filenames[self.image_base].append(filename)
+        picture = Picture(source=self.filenames[self.image_base][self.file_index[self.image_base]])
+        self.image_parent.add_widget(picture)
 
-            # Find image parent
-            image_box = self.children[0]
-            image = image_box.children[1]
-            image.clear_widgets()
-
-            # Load the image
-            if self.image_base not in self.file_index.keys():
-                self.file_index[self.image_base] = 0
-
-            picture = Picture(source=self.filenames[self.image_base][self.file_index[self.image_base]])
-            image.add_widget(picture)
-
-            self.file_index[self.image_base] += 1
-            if self.file_index[self.image_base] >= len(self.filenames[self.image_base]):
-                self.file_index[self.image_base] = 0
+        self.file_index[self.image_base] += 1
+        if self.file_index[self.image_base] >= len(self.filenames[self.image_base]):
+            self.file_index[self.image_base] = 0
 
 
 class NumberScreen(Screen):
@@ -179,7 +173,7 @@ class MnemoApp(App):
         self.sm.screens[2].clear_image()
         self.sm.screens[2].image_base = base
         self.sm.screens[2].file_index[base] = 0
-        self.sm.screens[2].show_image()
+        self.sm.screens[2].show_next_image()
         self.sm.current = 'image'
 
 
