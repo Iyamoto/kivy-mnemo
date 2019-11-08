@@ -7,13 +7,9 @@ from os.path import join, dirname
 from random import shuffle
 from kivy.app import App
 from kivy.clock import Clock
-from kivy.uix.rst import RstDocument
 from kivy.uix.scatter import Scatter
 from kivy.uix.recycleview.views import RecycleDataViewBehavior
 from kivy.uix.button import Button
-from kivy.uix.recycleboxlayout import RecycleBoxLayout
-from kivy.uix.behaviors import FocusBehavior
-from kivy.uix.recycleview.layout import LayoutSelectionBehavior
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.recycleview import RecycleView
 from kivy.properties import ObjectProperty
@@ -80,18 +76,25 @@ class BaseImageScreen(Screen):
                 for filename in sorted(glob(join(current_dir, 'infoblocks', dir_name, '*'))):
                     self.filenames[dir_name].append(filename)
 
-    def on_touch_down(self, touch):
-        self.initial = touch.x
-        # print(help(self))
-
-    def on_touch_up(self, touch):
-        # Swipe right
-        if (touch.x - self.initial) > 50:
-            self.show_next_image()
-
-        # Swipe left
-        if (self.initial - touch.x) > 50:
-            self.show_previous_image()
+    # def on_touch_down(self, touch):
+    #     if touch.y > 100:
+    #         self.initial = touch.x
+    #     else:
+    #         pass
+    #
+    # def on_touch_up(self, touch):
+    #     if touch.y > 100:
+    #         # Swipe right
+    #         if (touch.x - self.initial) > 100:
+    #             self.initial = 0
+    #             self.show_next_image()
+    #
+    #         # Swipe left
+    #         if (self.initial - touch.x) > 100:
+    #             self.initial = 0
+    #             self.show_previous_image()
+    #     else:
+    #         pass
 
     def clear_image(self):
         self.image_parent.clear_widgets()
