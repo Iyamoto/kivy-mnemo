@@ -59,21 +59,23 @@ class ImageScreen(Screen):
     """Handles screen for Base images"""
     def __init__(self, **kwargs):
         super(ImageScreen, self).__init__(**kwargs)
-
+        self.filenames = None
         self.image_base = ''
         self.file_index = dict()
-
-        self.filenames = dict()
-        current_dir = dirname(__file__)
-        for dir_name in sorted(os.listdir(join(current_dir, 'infoblocks'))):
-            self.filenames[dir_name] = list()
-            for filename in sorted(glob(join(current_dir, 'infoblocks', dir_name, '*'))):
-                self.filenames[dir_name].append(filename)
 
         image_box = self.children[0]
         self.image_parent = image_box.children[1]
 
         self.initial = 0
+
+    def prepare_filenames(self):
+        if not self.filenames:
+            self.filenames = dict()
+            current_dir = dirname(__file__)
+            for dir_name in sorted(os.listdir(join(current_dir, 'infoblocks'))):
+                self.filenames[dir_name] = list()
+                for filename in sorted(glob(join(current_dir, 'infoblocks', dir_name, '*'))):
+                    self.filenames[dir_name].append(filename)
 
     def on_touch_down(self, touch):
         self.initial = touch.x
@@ -91,6 +93,7 @@ class ImageScreen(Screen):
         self.image_parent.clear_widgets()
 
     def show_previous_image(self):
+        self.prepare_filenames()
         self.clear_image()
 
         if self.image_base not in self.file_index.keys():
@@ -104,6 +107,7 @@ class ImageScreen(Screen):
         self.image_parent.add_widget(picture)
 
     def show_next_image(self):
+        self.prepare_filenames()
         self.clear_image()
 
         if self.image_base not in self.file_index.keys():
@@ -123,14 +127,10 @@ class NumberScreen(Screen):
 
     def __init__(self, **kwargs):
         super(NumberScreen, self).__init__(**kwargs)
-        self.filenames = list()
+        self.filenames = None
         self.index = 0
         self.event = None
         self.timeout = 5
-        current_dir = dirname(__file__)
-        for filename in sorted(glob(join(current_dir, 'numbers',  '*'))):
-            self.filenames.append(filename)
-
         image_box = self.children[0]
         self.image_parent = image_box.children[1]
 
@@ -167,6 +167,11 @@ class NumberScreen(Screen):
             self.event = Clock.schedule_interval(self.show_image, self.timeout)
 
     def on_pre_enter(self):
+        if not self.filenames:
+            self.filenames = list()
+            current_dir = dirname(__file__)
+            for filename in sorted(glob(join(current_dir, 'numbers', '*'))):
+                self.filenames.append(filename)
         self.clear_image()
         self.show_image()
 
