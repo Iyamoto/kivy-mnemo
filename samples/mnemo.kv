@@ -21,6 +21,7 @@
             text: "Train numbers"
             font_size: '30sp'
             size_hint_y: 1
+            on_press: root.manager.current = 'number_training'
         Button:
             color: 1,0.5,0.2,1
             text: "Lessons"
@@ -32,6 +33,37 @@
             text: "Advanced training"
             font_size: '30sp'
             size_hint_y: 1
+
+<NumberTrainingScreen@Screen>:
+    BoxLayout:
+        padding: '5dp'
+        spacing: '5dp'
+        orientation: "vertical"
+        Label:
+            color: 1,0.5,0.2,1
+            font_size: '20sp'
+            text: "Remember number codes"
+            size_hint_y: 0.1
+        Label:
+            canvas.before:
+                Color:
+                    rgba: (1,1,1,1)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            size_hint_y: None
+            height: 1
+        Label:
+            size_hint_y: 0.8
+            color: 0.75,0.75,0.75,1
+            text: '40'
+            font_size: '200sp'
+        Button:
+            color: 1,0.5,0.2,1
+            font_size: '20sp'
+            text: "MENU"
+            size_hint_y: 0.1
+            on_press: root.manager.current = 'menu'
 
 <BasesListScreen@Screen>:
     BoxLayout:

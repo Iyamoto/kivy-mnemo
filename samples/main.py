@@ -1,6 +1,6 @@
 """R&D staff"""
 
-__version__ = '0.41'
+__version__ = '0.42'
 
 from glob import glob, os
 from os.path import join, dirname
@@ -211,6 +211,10 @@ class Picture(Scatter):
     source = StringProperty(None)
 
 
+class NumberTrainingScreen(Screen):
+    pass
+
+
 class MnemoApp(App):
     def __init__(self, **kwargs):
         super(MnemoApp, self).__init__(**kwargs)
@@ -224,6 +228,7 @@ class MnemoApp(App):
         self.sm.add_widget(NumberScreen(name='number'))
         self.sm.add_widget(LessonsListScreen(name='lessons_list'))
         self.sm.add_widget(LessonsScreen(name='lessons'))
+        self.sm.add_widget(NumberTrainingScreen(name='number_training'))
         return self.sm
 
     def switch_to_image(self, base=''):
