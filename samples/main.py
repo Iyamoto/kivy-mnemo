@@ -1,10 +1,10 @@
 """R&D staff"""
 
-__version__ = '0.42'
+__version__ = '0.52'
 
 from glob import glob, os
 from os.path import join, dirname
-from random import shuffle
+from random import shuffle, randint
 from kivy.app import App
 from kivy.clock import Clock
 from kivy.uix.scatter import Scatter
@@ -228,7 +228,7 @@ class NumberTrainingScreen(Screen):
             self.codes.append(code)
         self.index = 0
         self.event = None
-        self.timeout = 2
+        self.timeout = 7
         self.limit = 2
         self.state = None
         self.user_codes = list()
@@ -253,7 +253,9 @@ class NumberTrainingScreen(Screen):
         if not self.state:
             pops = SimplePopup()
             pops.title = 'Do the math'
-            pops.math_field.text = '2 + 4 - 10'
+            pops.math_field.text = str(randint(0, 100)) + ' + ' + \
+                                   str(randint(0, 100)) + ' - ' + \
+                                   str(randint(0, 100))
             pops.open()
             self.state = 'math'
         elif self.state == 'math':
@@ -263,6 +265,7 @@ class NumberTrainingScreen(Screen):
             pops.open()
             self.state = 'check'
         elif self.state == 'check':
+            self.state = None
             self.compare_codes()
 
     def compare_codes(self):
