@@ -14,6 +14,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.recycleview import RecycleView
 from kivy.properties import ObjectProperty
 from kivy.properties import StringProperty
+from kivy.uix.popup import Popup
 from kivy.config import Config
 
 
@@ -227,8 +228,9 @@ class NumberTrainingScreen(Screen):
             self.codes.append(code)
         self.index = 0
         self.event = None
-        self.timeout = 7
-        self.limit = 10
+        self.timeout = 2
+        self.limit = 2
+        self.state = None
 
     def start(self):
         self.output.text = '..'
@@ -240,11 +242,23 @@ class NumberTrainingScreen(Screen):
         self.index += 1
         if self.index >= self.limit:
             self.event.cancel()
-            self.event = Clock.schedule_once(self.check_codes, self.timeout)
+            self.event = Clock.schedule_once(self.show_popup, self.timeout)
 
-    def check_codes(self, dt=None):
+    def show_popup(self, dt=None):
         self.index = 0
         self.output.text = ''
+        if not self.state:
+            pops = SimplePopup()
+            pops.title = 'Do the math'
+            pops.math_field.text = '2 + 4 - 10'
+            pops.open()
+            self.state = 'math'
+        elif self.state == 'math':
+            pops = SimplePopup()
+            pops.title = 'Enter codes'
+            pops.math_field.text = ''
+            pops.open()
+            self.state = 'check'
 
     def update_timeout(self):
         self.timeout = int(self.user_input_timeout.text)
@@ -254,6 +268,13 @@ class NumberTrainingScreen(Screen):
         self.output.text = ''
         self.user_input_timeout.text = str(self.timeout)
         self.user_input_limit.text = str(self.limit)
+
+
+class SimplePopup(Popup):
+    math_field = ObjectProperty()
+
+    def on_dismiss(self):
+        App.get_running_app().sm.screens[6].show_popup()
 
 
 class MnemoApp(App):

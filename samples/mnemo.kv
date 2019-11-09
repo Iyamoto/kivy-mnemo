@@ -103,6 +103,28 @@
                 size_hint_x: 0.3
                 on_press: root.start()
 
+<SimplePopup>:
+    id: pop
+    math_field: math
+    size_hint: .8, .8
+    auto_dismiss: False
+    BoxLayout:
+        padding: '5dp'
+        spacing: '5dp'
+        orientation: "vertical"
+        Label:
+            id: math
+            size_hint_y: 0.9
+            color: 0.75,0.75,0.75,1
+            font_size: '20sp'
+        Button:
+            text: 'Done'
+            font_size: '20sp'
+            color: 1,0.5,0.2,1
+            size_hint_y: 0.1
+            on_press:
+                pop.dismiss()
+
 <BasesListScreen@Screen>:
     BoxLayout:
         padding: '5dp'
