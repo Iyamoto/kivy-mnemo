@@ -1,4 +1,4 @@
-"""R&D staff"""
+"""Mnemo training application"""
 
 __version__ = '0.53'
 
