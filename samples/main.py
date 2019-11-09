@@ -266,7 +266,9 @@ class NumberTrainingScreen(Screen):
 
     def compare_codes(self):
         self.output.font_size = '20sp'
-        self.output.text = ', '.join(self.user_codes)
+        self.output.text = '[color=ff0000]'
+        self.output.text += ', '.join(self.user_codes)
+        self.output.text += '[/color]'
 
     def update_timeout(self):
         self.timeout = int(self.user_input_timeout.text)
