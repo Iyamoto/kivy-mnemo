@@ -234,6 +234,7 @@ class NumberTrainingScreen(Screen):
         self.user_codes = list()
 
     def start(self):
+        self.output.font_size = '200sp'
         self.output.text = '..'
         shuffle(self.codes)
         self.event = Clock.schedule_interval(self.show_code, self.timeout)
@@ -266,9 +267,31 @@ class NumberTrainingScreen(Screen):
 
     def compare_codes(self):
         self.output.font_size = '20sp'
-        self.output.text = '[color=ff0000]'
-        self.output.text += ', '.join(self.user_codes)
-        self.output.text += '[/color]'
+        self.output.text = ''
+        sep = ', '
+        i = 0
+        errors = 0
+        for code in self.codes:
+            if i >= len(self.user_codes):
+                self.output.text += '[color=ff0000]'
+                self.output.text += code
+                self.output.text += '[/color]'
+                errors += 1
+            elif code == self.user_codes[i]:
+                self.output.text += code
+            else:
+                self.output.text += '[color=ff0000]'
+                self.output.text += code + ' <> ' + self.user_codes[i]
+                self.output.text += '[/color]'
+                errors += 1
+            i += 1
+            if i >= self.limit:
+                errors_rate = str(round(100 * errors / self.limit, 2))
+                self.output.text += '\n\nErrors rate: ' + errors_rate + ' %'
+                break
+            self.output.text += sep
+
+        self.user_codes = list()
 
     def update_timeout(self):
         self.timeout = int(self.user_input_timeout.text)
