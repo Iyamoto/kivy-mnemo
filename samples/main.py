@@ -1,6 +1,6 @@
 """R&D staff"""
 
-__version__ = '0.52'
+__version__ = '0.53'
 
 from glob import glob, os
 from os.path import join, dirname
@@ -23,20 +23,17 @@ class MenuScreen(Screen):
 
 
 class LessonsScreen(Screen):
-    text = StringProperty(None)
+    document_root = StringProperty(None)
+    source = StringProperty(None)
 
     def __init__(self, **kwargs):
         super(LessonsScreen, self).__init__(**kwargs)
-        self.lesson_file = ''
-        self.text = ''
+        self.lesson_file = None
+        current_dir = dirname(__file__)
+        self.document_root = join(current_dir, 'lessons')
 
     def on_pre_enter(self):
-        current_dir = dirname(__file__)
-        file_path = join(current_dir, 'lessons', self.lesson_file)
-
-        with open(file_path, encoding="utf8") as fobj:
-            for line in fobj:
-                self.text += line
+        self.source = self.lesson_file
 
 
 class LessonsListScreen(Screen):
