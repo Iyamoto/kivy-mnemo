@@ -226,7 +226,7 @@ class NumberTrainingScreen(Screen):
         self.index = 0
         self.event = None
         self.timeout = 7
-        self.limit = 2
+        self.limit = 20
         self.state = None
         self.user_codes = list()
 
@@ -250,8 +250,11 @@ class NumberTrainingScreen(Screen):
         if not self.state:
             pops = SimplePopup()
             pops.title = 'Do the math'
-            pops.math_field.text = str(randint(0, 100)) + ' + ' + \
-                                   str(randint(0, 100)) + ' - ' + \
+            signs = ['+', '-', '*']
+            shuffle(signs)
+            pops.math_field.text = str(randint(0, 100)) + ' ' + signs[0] + ' ' + \
+                                   str(randint(0, 100)) + ' ' + signs[1] + ' ' + \
+                                   str(randint(0, 100)) + ' ' + signs[2] + ' ' + \
                                    str(randint(0, 100))
             pops.open()
             self.state = 'math'
