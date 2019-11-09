@@ -245,6 +245,7 @@ class NumberTrainingScreen(Screen):
             self.event = Clock.schedule_once(self.show_popup, self.timeout)
 
     def show_popup(self, dt=None):
+        self.event = None
         self.index = 0
         self.output.text = ''
         if not self.state:
@@ -272,6 +273,7 @@ class NumberTrainingScreen(Screen):
 
 class SimplePopup(Popup):
     math_field = ObjectProperty()
+    code_box_id = ObjectProperty()
 
     def on_dismiss(self):
         App.get_running_app().sm.screens[6].show_popup()
