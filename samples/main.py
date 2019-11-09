@@ -231,6 +231,7 @@ class NumberTrainingScreen(Screen):
         self.timeout = 2
         self.limit = 2
         self.state = None
+        self.user_codes = list()
 
     def start(self):
         self.output.text = '..'
@@ -260,6 +261,12 @@ class NumberTrainingScreen(Screen):
             pops.math_field.text = ''
             pops.open()
             self.state = 'check'
+        elif self.state == 'check':
+            self.compare_codes()
+
+    def compare_codes(self):
+        self.output.font_size = '20sp'
+        self.output.text = ', '.join(self.user_codes)
 
     def update_timeout(self):
         self.timeout = int(self.user_input_timeout.text)
@@ -275,7 +282,17 @@ class SimplePopup(Popup):
     math_field = ObjectProperty()
     code_box_id = ObjectProperty()
 
+    def __init__(self, **kwargs):
+        super(SimplePopup, self).__init__(**kwargs)
+        self.code_list = list()
+
+    def add_code(self):
+        self.code_list.append(self.code_box_id.text)
+        self.math_field.text = ', '.join(self.code_list)
+        self.code_box_id.text = ''
+
     def on_dismiss(self):
+        App.get_running_app().sm.screens[6].user_codes = self.code_list
         App.get_running_app().sm.screens[6].show_popup()
 
 
