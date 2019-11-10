@@ -1,0 +1,320 @@
+
+<MenuScreen@Screen>:
+    BoxLayout:
+        padding: '5dp'
+        spacing: '5dp'
+        orientation: "vertical"
+        Button:
+            color: 1,0.5,0.2,1
+            text: "Recall base"
+            size_hint_y: 1
+            font_size: '30sp'
+            on_press: root.manager.current = 'bases_list'
+        Button:
+            color: 1,0.5,0.2,1
+            text: "Recall numbers"
+            size_hint_y: 1
+            font_size: '30sp'
+            on_press: root.manager.current = 'number'
+        Button:
+            color: 1,0.5,0.2,1
+            text: "Train numbers"
+            font_size: '30sp'
+            size_hint_y: 1
+            on_press: root.manager.current = 'number_training'
+        Button:
+            color: 1,0.5,0.2,1
+            text: "Lessons"
+            font_size: '30sp'
+            size_hint_y: 1
+            on_press: root.manager.current = 'lessons_list'
+        Button:
+            color: 1,0.5,0.2,1
+            text: "Advanced training"
+            font_size: '30sp'
+            size_hint_y: 1
+
+<NumberTrainingScreen@Screen>:
+    output: number_code
+    user_input_timeout: timeout_box
+    user_input_limit: limit_box
+    BoxLayout:
+        padding: '5dp'
+        spacing: '5dp'
+        orientation: "vertical"
+        Label:
+            color: 1,0.5,0.2,1
+            font_size: '20sp'
+            text: "Remember number codes"
+            size_hint_y: 0.1
+        Label:
+            canvas.before:
+                Color:
+                    rgba: (1,1,1,1)
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            size_hint_y: None
+            height: 1
+        Label:
+            id: number_code
+            size_hint_y: 0.8
+            markup: True
+            halign: 'center'
+            text_size: self.width, None
+            color: 0.75,0.75,0.75,1
+        BoxLayout:
+            padding: '5dp'
+            spacing: '5dp'
+            orientation: "horizontal"
+            size_hint_y: 0.1
+            Button:
+                color: 1,0.5,0.2,1
+                font_size: '20sp'
+                text: "MENU"
+                size_hint_x: 0.2
+                on_press: root.manager.current = 'menu'
+            TextInput:
+                id: timeout_box
+                multiline: False
+                color: 1,0.5,0.2,1
+                font_size: '30sp'
+                halign: 'center'
+                valign: 'middle'
+                text: "7"
+                size_hint_x: 0.1
+            TextInput:
+                id: limit_box
+                multiline: False
+                color: 1,0.5,0.2,1
+                font_size: '30sp'
+                halign: 'center'
+                valign: 'middle'
+                text: "10"
+                size_hint_x: 0.1
+            Button:
+                color: 1,0.5,0.2,1
+                font_size: '20sp'
+                text: "UPDATE"
+                size_hint_x: 0.3
+                on_press: root.update_timeout()
+            Button:
+                color: 1,0.5,0.2,1
+                font_size: '20sp'
+                text: "START"
+                size_hint_x: 0.3
+                on_press: root.start()
+
+<SimplePopup>:
+    id: pop
+    math_field: math
+    code_box_id: code_box
+    size_hint: .8, .8
+    auto_dismiss: False
+    BoxLayout:
+        padding: '5dp'
+        spacing: '5dp'
+        orientation: "vertical"
+        Label:
+            id: math
+            size_hint_y: 0.8
+            color: 0.75,0.75,0.75,1
+            font_size: '20sp'
+        BoxLayout:
+            padding: '5dp'
+            spacing: '5dp'
+            orientation: "horizontal"
+            size_hint_y: 0.2
+            TextInput:
+                id: code_box
+                multiline: False
+                color: 1,0.5,0.2,1
+                font_size: '30sp'
+                halign: 'center'
+                valign: 'middle'
+                text: ""
+                size_hint_x: 0.2
+            Button:
+                text: 'ADD'
+                font_size: '20sp'
+                color: 1,0.5,0.2,1
+                size_hint_x: 0.4
+                on_press:
+                    root.add_code()
+            Button:
+                text: 'DONE'
+                font_size: '20sp'
+                color: 1,0.5,0.2,1
+                size_hint_x: 0.4
+                on_press:
+                    pop.dismiss()
+
+<BasesListScreen@Screen>:
+    BoxLayout:
+        padding: '5dp'
+        spacing: '5dp'
+        orientation: "vertical"
+        Label:
+            color: 1,0.5,0.2,1
+            font_size: '20sp'
+            text: "Choose base"
+            size_hint_y: 0.1
+        BoxLayout:
+            size_hint_y: 0.8
+            ListBases:
+        Button:
+            color: 1,0.5,0.2,1
+            font_size: '20sp'
+            text: "MENU"
+            size_hint_y: 0.1
+            on_press: root.manager.current = 'menu'
+
+<BaseButton>
+    font_size: '20sp'
+
+<ListBases@RecycleView>:
+    viewclass: 'BaseButton'
+    RecycleBoxLayout:
+        padding: '5dp'
+        spacing: '5dp'
+        default_size: None, dp(60)
+        default_size_hint: 1, None
+        size_hint_y: None
+        height: self.minimum_height
+        orientation: 'vertical'
+
+<BaseImageScreen@Screen>:
+    BoxLayout:
+        orientation: "vertical"
+        RelativeLayout:
+            size_hint_y: 0.9
+        BoxLayout:
+            padding: '5dp'
+            spacing: '5dp'
+            orientation: "horizontal"
+            size_hint_y: 0.1
+            Button:
+                color: 1,0.5,0.2,1
+                font_size: '20sp'
+                text: "BACK"
+                size_hint_x: 1
+                on_press: root.show_previous_image()
+            Button:
+                color: 1,0.5,0.2,1
+                font_size: '20sp'
+                text: "MENU"
+                size_hint_x: 1
+                on_press: root.manager.current = 'menu'
+            Button:
+                color: 1,0.5,0.2,1
+                font_size: '20sp'
+                text: "NEXT"
+                size_hint_x: 1
+                on_press: root.show_next_image()
+
+<NumberScreen@Screen>:
+    user_input: timeout_box
+    BoxLayout:
+        orientation: "vertical"
+        RelativeLayout:
+            size_hint_y: 0.9
+        BoxLayout:
+            padding: '5dp'
+            spacing: '5dp'
+            orientation: "horizontal"
+            size_hint_y: 0.1
+            Button:
+                color: 1,0.5,0.2,1
+                font_size: '20sp'
+                text: "MENU"
+                size_hint_x: 0.3
+                on_press: root.manager.current = 'menu'
+            TextInput:
+                id: timeout_box
+                multiline: False
+                color: 1,0.5,0.2,1
+                font_size: '30sp'
+                halign: 'center'
+                valign: 'middle'
+                text: "5"
+                size_hint_x: 0.1
+            Button:
+                color: 1,0.5,0.2,1
+                font_size: '20sp'
+                text: "UPDATE"
+                size_hint_x: 0.3
+                on_press: root.update_timeout()
+            Button:
+                color: 1,0.5,0.2,1
+                font_size: '20sp'
+                text: "PAUSE"
+                size_hint_x: 0.3
+                on_press: root.pause()
+
+<Picture@Scatter>:
+    pos_hint: {'top': 1}
+    do_rotation: False
+    do_scale: False
+    do_scroll: False
+    do_translation: False
+    Image:
+        id: image
+        source: root.source
+        allow_stretch: False
+        keep_ratio: True
+        size: root.width - dp(5), root.height - dp(5)
+
+<LessonsListScreen@Screen>:
+    BoxLayout:
+        padding: '5dp'
+        spacing: '5dp'
+        orientation: "vertical"
+        Label:
+            color: 1,0.5,0.2,1
+            font_size: '20sp'
+            text: "Choose lesson"
+            size_hint_y: 0.1
+        BoxLayout:
+            size_hint_y: 0.8
+            ListLessons:
+        Button:
+            color: 1,0.5,0.2,1
+            font_size: '20sp'
+            text: "MENU"
+            size_hint_y: 0.1
+            on_press: root.manager.current = 'menu'
+
+<LessonButton>
+    font_size: '20sp'
+
+<ListLessons@RecycleView>:
+    viewclass: 'LessonButton'
+    RecycleBoxLayout:
+        padding: '5dp'
+        spacing: '5dp'
+        default_size: None, dp(60)
+        default_size_hint: 1, None
+        size_hint_y: None
+        height: self.minimum_height
+        orientation: 'vertical'
+
+<LessonsScreen@Screen>:
+    BoxLayout:
+        padding: '5dp'
+        spacing: '5dp'
+        orientation: "vertical"
+        Label:
+            color: 1,0.5,0.2,1
+            font_size: '20sp'
+            text: "Lessons"
+            size_hint_y: 0.1
+        RstDocument:
+            background_color: 0.75,0.73,0.73,1
+            source: root.source
+            document_root: root.document_root
+        Button:
+            color: 1,0.5,0.2,1
+            font_size: '20sp'
+            text: "MENU"
+            size_hint_y: 0.1
+            on_press: root.manager.current = 'menu'

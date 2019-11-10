@@ -1,0 +1,70 @@
+
+<MenuScreen@Screen>:
+    BoxLayout:
+        padding: '5dp'
+        spacing: '5dp'
+        orientation: "vertical"
+        Button:
+            color: 1,0.5,0.2,1
+            text: "Chess board"
+            size_hint_y: 1
+            font_size: '30sp'
+            on_press: root.manager.current = 'chess_board'
+        Button:
+            color: 1,0.5,0.2,1
+            text: "TBD"
+            size_hint_y: 1
+            font_size: '30sp'
+        Button:
+            color: 1,0.5,0.2,1
+            text: "TBD"
+            font_size: '30sp'
+            size_hint_y: 1
+        Button:
+            color: 1,0.5,0.2,1
+            text: "TBD"
+            font_size: '30sp'
+            size_hint_y: 1
+        Button:
+            color: 1,0.5,0.2,1
+            text: "TBD"
+            font_size: '30sp'
+            size_hint_y: 1
+
+<ChessBoardScreen@Screen>:
+    BoxLayout:
+        padding: '5dp'
+        spacing: '5dp'
+        orientation: "vertical"
+        RelativeLayout:
+            size_hint_y: 0.9
+            canvas.before:
+                Color:
+                    rgb: (0.75, 0.75, 0.75)
+                Rectangle:
+                    pos: 0, 0
+                    size: self.size
+        BoxLayout:
+            padding: '5dp'
+            spacing: '5dp'
+            orientation: "horizontal"
+            size_hint_y: 0.1
+            Button:
+                color: 1,0.5,0.2,1
+                font_size: '20sp'
+                text: "MENU"
+                size_hint_x: 1
+                on_press: root.manager.current = 'menu'
+            Button:
+                color: 1,0.5,0.2,1
+                font_size: '20sp'
+                text: "Board"
+                size_hint_x: 1
+                on_press: root.show_board()
+
+<SvgWidget@Scatter>:
+#    pos_hint: {'top': 1}
+    do_rotation: False
+    do_scale: False
+    do_scroll: False
+    do_translation: False
