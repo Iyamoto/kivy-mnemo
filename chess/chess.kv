@@ -6,10 +6,10 @@
         orientation: "vertical"
         Button:
             color: 1,0.5,0.2,1
-            text: "Chess board"
+            text: "Lessons"
             size_hint_y: 1
             font_size: '30sp'
-            on_press: root.manager.current = 'chess_board'
+            on_press: root.manager.current = 'lesson'
         Button:
             color: 1,0.5,0.2,1
             text: "TBD"
@@ -31,13 +31,18 @@
             font_size: '30sp'
             size_hint_y: 1
 
-<ChessBoardScreen@Screen>:
+<LessonScreen@Screen>:
     BoxLayout:
         padding: '5dp'
         spacing: '5dp'
         orientation: "vertical"
+        Label:
+            color: 1,0.5,0.2,1
+            font_size: '20sp'
+            text: "Q:"
+            size_hint_y: 0.2
         RelativeLayout:
-            size_hint_y: 0.9
+            size_hint_y: 0.7
             canvas.before:
                 Color:
                     rgb: (0.75, 0.75, 0.75)
@@ -61,10 +66,23 @@
                 text: "Board"
                 size_hint_x: 1
                 on_press: root.show_board()
+            Button:
+                color: 1,0.5,0.2,1
+                font_size: '20sp'
+                text: "Next"
+                size_hint_x: 1
 
 <SvgWidget@Scatter>:
-#    pos_hint: {'top': 1}
+    pos_hint: {'top': 1}
     do_rotation: False
     do_scale: False
     do_scroll: False
     do_translation: False
+
+<TextBoard@Label>:
+    size_hint_y: 0.8
+    font_size: '20sp'
+    markup: True
+    halign: 'center'
+    text_size: self.width, None
+    color: 0,0,0,1

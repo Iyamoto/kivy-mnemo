@@ -19,6 +19,7 @@ from kivy.graphics.svg import Svg
 from kivy.core.window import Window
 from kivy.uix.relativelayout import RelativeLayout
 from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.label import Label
 import chess
 import chess.svg
 
@@ -27,9 +28,9 @@ class MenuScreen(Screen):
     pass
 
 
-class ChessBoardScreen(Screen):
+class LessonScreen(Screen):
     def __init__(self, **kwargs):
-        super(ChessBoardScreen, self).__init__(**kwargs)
+        super(LessonScreen, self).__init__(**kwargs)
 
         image_box = self.children[0]
         self.image_parent = image_box.children[1]
@@ -37,27 +38,33 @@ class ChessBoardScreen(Screen):
     def clear_board(self):
         self.image_parent.clear_widgets()
 
+    # def show_board(self):
+    #     self.clear_board()
+    #     board = chess.Board()
+    #
+    #     svg_code = chess.svg.board()
+    #
+    #     filename = 'tmp.svg'
+    #     with open(filename, 'w') as outfile:
+    #         outfile.write(svg_code)
+    #
+    #     svg = SvgWidget(filename)
+    #
+    #     print(self.image_parent)
+    #     self.image_parent.add_widget(svg)
+    #     svg.center = Window.center
+
     def show_board(self):
         self.clear_board()
+
         board = chess.Board()
-        # print(board)
-        # svg_code = chess.svg.board(board=board)
+        text_board = TextBoard()
+        text_board.text = str(board)
+        self.image_parent.add_widget(text_board)
 
-        board = chess.Board("8/8/8/8/4N3/8/8/8 w - - 0 1")
-        squares = board.attacks(chess.E4)
-        svg_code = chess.svg.board(board=board, squares=squares)
 
-        filename = 'tmp.svg'
-        with open(filename, 'w') as outfile:
-            outfile.write(svg_code)
-
-        svg = SvgWidget(filename)
-        print(self.image_parent)
-        print(self.image_parent.size)
-        print(svg.size)
-        print(self.image_parent.pos)
-        self.image_parent.add_widget(svg)
-        svg.center = Window.center
+class TextBoard(Label):
+    pass
 
 
 class SvgWidget(Scatter):
@@ -75,7 +82,7 @@ class ChessApp(App):
 
     def build(self):
         self.sm.add_widget(MenuScreen(name='menu'))
-        self.sm.add_widget(ChessBoardScreen(name='chess_board'))
+        self.sm.add_widget(LessonScreen(name='lesson'))
 
         return self.sm
 
